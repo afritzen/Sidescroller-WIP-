@@ -1,5 +1,7 @@
 package main;
 
+import gamestate.GameStateManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -38,7 +40,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
      * Graphics to be rendered.
      */
     private Graphics2D g2d;
-    //private GameStateManager gameStateManager;
+    /**
+     * Manages saved states.
+     */
+    private GameStateManager gameStateManager;
 
     /**
      * Initializes the title screen.
@@ -70,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
         titleImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g2d = (Graphics2D) titleImg.getGraphics();
         running = true;
-        //TODO: init game state manager
+        gameStateManager = new GameStateManager();
     }
 
     @Override
@@ -80,12 +85,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //TODO: game state manager
+        gameStateManager.keyPressed(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        //TODO: game state manager
+        gameStateManager.keyReleased(e.getKeyCode());
     }
 
     /**
@@ -123,11 +128,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     }
 
     private void update () {
-        //TODO: game state manager
+        gameStateManager.update();
     }
 
     private void draw() {
-        //TODO: game state manager
+        gameStateManager.draw(g2d);
     }
 
     /**
