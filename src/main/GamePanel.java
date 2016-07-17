@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     /**
      * Amount of scale.
      */
-    public static final int SCALE = 2;
+    public static final int SCALE = 3;
     private Thread gameThread;
     private boolean running;
     /**
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     /**
      * Graphics to be rendered.
      */
-    private Graphics2D g2d;
+    private Graphics2D graphics2D;
     /**
      * Manages saved states.
      */
@@ -60,8 +60,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
      */
     public void addNotify () {
         super.addNotify();
-
-        if (gameThread != null) {
+        if (gameThread == null) {
             gameThread = new Thread(this);
             addKeyListener(this);
             gameThread.start();
@@ -73,15 +72,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
      */
     private void init() {
         titleImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        g2d = (Graphics2D) titleImg.getGraphics();
+        graphics2D = (Graphics2D) titleImg.getGraphics();
         running = true;
         gameStateManager = new GameStateManager();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        //TODO
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -132,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     }
 
     private void draw() {
-        gameStateManager.draw(g2d);
+        gameStateManager.draw(graphics2D);
     }
 
     /**
@@ -143,4 +140,5 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
         graphics.drawImage(titleImg, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
         graphics.dispose();
     }
+
 }

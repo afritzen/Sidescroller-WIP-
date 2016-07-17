@@ -34,7 +34,7 @@ public class GameStateManager {
     public GameStateManager() {
         gameStates = new ArrayList<>();
         currentState = MENUSTATE;
-        //gameStates.add(new MenuState(this));
+        gameStates.add(new MenuState(this));
     }
 
     /**
