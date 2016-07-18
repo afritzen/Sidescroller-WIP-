@@ -2,6 +2,7 @@ package tilemap;
 
 import main.GamePanel;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 /**
@@ -44,8 +45,8 @@ public class TileMap {
     /**
      * Amount of columns.
      */
-    private int numCols;
     private int width;
+    private int numCols;
     private int height;
     /**
      * For smooth scrolling.
@@ -78,6 +79,35 @@ public class TileMap {
         numRowsToDraw = GamePanel.HEIGHT/tileSize+2;
         numColsToDraw = GamePanel.WIDTH/tileSize+2;
         tween = 0.07;
+    }
+
+    /**
+     * Loads a tileset image and fills the map with different tile types.
+     * @param filename file that holds the tileset image
+     */
+    public void loadTiles(String filename) {
+
+        try {
+            tileset = ImageIO.read(getClass().getResourceAsStream(filename));
+            numTilesAcross = tileset.getWidth()/tileSize;
+            // new 2d array with two rows to store the map
+            tiles = new Tile[2][numTilesAcross];
+
+            // current subimage of tileset graphic
+            BufferedImage subImage;
+
+            // create two rows and fill them with subimages from the tileset
+            for (int col = 0; col < numTilesAcross; col++) {
+                subImage = tileset.getSubimage(col*tileSize, 0, tileSize, tileSize);
+                tiles[0][col] = new Tile(subImage, Tile.NORMAL);
+                subImage = tileset.getSubimage(col*tileSize, tileSize, tileSize, tileSize);
+                tiles[1][col] = new Tile(subImage, Tile.BLOCKED);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
