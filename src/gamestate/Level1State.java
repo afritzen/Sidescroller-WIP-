@@ -1,6 +1,7 @@
 package gamestate;
 
 import main.GamePanel;
+import tilemap.Background;
 import tilemap.TileMap;
 
 import java.awt.*;
@@ -10,7 +11,14 @@ import java.awt.*;
  */
 public class Level1State extends GameState{
 
+    /**
+     * The map of this level.
+     */
     private TileMap tileMap;
+    /**
+     * Background image for this level.
+     */
+    private Background background;
 
     /**
      * Initializes the first level by loading the map and setting up the
@@ -24,6 +32,9 @@ public class Level1State extends GameState{
 
     @Override
     public void init() {
+        // init background
+        background = new Background("/backgrounds/swamp_lvl1_bg.png", 0.1);
+
         // init map
         tileMap = new TileMap(30);
         tileMap.loadTiles("/tilesets/grasstileset.gif");
@@ -38,9 +49,9 @@ public class Level1State extends GameState{
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        //clear screen to be safe
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+        // draw background
+        background.draw(graphics2D);
+
         // draw map
         tileMap.draw(graphics2D);
     }
