@@ -50,6 +50,14 @@ public abstract class MapObject {
     protected boolean jumping;
     protected boolean falling;
 
+    protected double moveSpeed;
+    protected double maxSpeed;
+    protected double stopSpeed;
+    protected double fallSpeed;
+    protected double maxFallSpeed;
+    protected double jumpStart;
+    protected double stopJumpSpeed;
+
     public MapObject(TileMap tileMap) {
         this.tileMap = tileMap;
         tileSize = tileMap.getTileSize();
