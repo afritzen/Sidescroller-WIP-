@@ -18,6 +18,10 @@ public class MenuState extends GameState{
      */
     private static final String OPTIONS_HELP = "Help";
     /**
+     * Text for credit option.
+     */
+    private static final String OPTIONS_CREDITS = "Credits";
+    /**
      * Text for quitting option.
      */
     private static final String OPTIONS_QUIT = "Quit";
@@ -36,6 +40,7 @@ public class MenuState extends GameState{
     private String options[] = {
             OPTIONS_START,
             OPTIONS_HELP,
+            OPTIONS_CREDITS,
             OPTIONS_QUIT
     };
 
@@ -61,7 +66,7 @@ public class MenuState extends GameState{
         this.gameStateManager = gameStateManager;
 
         try {
-            background = new Background("/backgrounds/placeholder_bg.png", 1);
+            background = new Background("/backgrounds/placeholder_bg.png", 0.1);
             background.setVector(-0.1, 0);
 
             titleColor = new Color(128, 0, 0);
@@ -123,6 +128,9 @@ public class MenuState extends GameState{
                 break;
             case 1:
                 //TODO: help
+                break;
+            case 2:
+                gameStateManager.setState(GameStateManager.CREDITSSTATE);
                 break;
             default:
                 System.exit(0);
