@@ -1,5 +1,6 @@
 package gamestate;
 
+import entity.Player;
 import main.GamePanel;
 import tilemap.Background;
 import tilemap.TileMap;
@@ -19,6 +20,10 @@ public class Level1State extends GameState{
      * Background image for this level.
      */
     private Background background;
+    /**
+     * The player appearing in this level.
+     */
+    private Player player;
 
     /**
      * Initializes the first level by loading the map and setting up the
@@ -40,20 +45,28 @@ public class Level1State extends GameState{
         tileMap.loadTiles("/tilesets/grasstileset.gif");
         tileMap.loadMap("/maps/level1-1.map");
         tileMap.setPosition(0, 0);
+
+        // init player
+        player = new Player(tileMap);
+        player.setPosition(100, 100);
     }
 
     @Override
     public void update() {
-
+        // update player and set camera
+        player.update();
+        tileMap.setPosition(GamePanel.WIDTH/2 - player.getxPos(),
+                GamePanel.HEIGHT/2 - player.getyPos());
     }
 
     @Override
     public void draw(Graphics2D graphics2D) {
         // draw background
         background.draw(graphics2D);
-
         // draw map
         tileMap.draw(graphics2D);
+        // draw player
+        player.draw(graphics2D);
     }
 
     @Override

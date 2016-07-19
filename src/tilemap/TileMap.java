@@ -131,6 +131,11 @@ public class TileMap {
             width = numCols*tileSize;
             height = numRows*tileSize;
 
+            xMin = GamePanel.WIDTH - width;
+            xMax = 0;
+            yMin = GamePanel.HEIGHT - height;
+            yMax = 0;
+
             String delimiters = "\\s+";
             // get sub-arrays as array of token
             for (int row = 0; row < numRows; row++) {
