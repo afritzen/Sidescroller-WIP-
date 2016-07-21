@@ -1,6 +1,8 @@
 package gamestate;
 
 import tilemap.Background;
+import util.ErrorMessages;
+import util.Options;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,8 +13,13 @@ import java.awt.event.KeyEvent;
 public class HelpState extends GameState{
 
     private static final String HELP = "Help";
-    private static final String BACK_OPTION = "back";
+    /**
+     * Space between lines of instructions.
+     */
     private static final int V_SPACE = 20;
+    /**
+     * Space between left screen border and instructions.
+     */
     private static final int X_OFFSET = 120;
 
     private Background background;
@@ -51,7 +58,7 @@ public class HelpState extends GameState{
             titleFont = new Font("Century Gothic", Font.BOLD, 30);
             standardFont = new Font("Arial", Font.PLAIN, 15);
         } catch(Exception e) {
-            System.out.println("Error loading background image!");
+            ErrorMessages.ERR_BG.getText();
             e.printStackTrace();
         }
 
@@ -69,12 +76,13 @@ public class HelpState extends GameState{
         graphics2D.setFont(titleFont);
         graphics2D.drawString(HELP, 45, 45);
 
+        // draw instructions
         graphics2D.setColor(standardColor);
         graphics2D.setFont(standardFont);
         drawInstructions(graphics2D);
 
         // draw back-option
-        graphics2D.drawString(BACK_OPTION, 270, 220);
+        graphics2D.drawString(Options.BACK.getText(), 270, 220);
 
     }
 

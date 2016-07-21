@@ -3,9 +3,11 @@ package gamestate;
 import main.Game;
 import main.GamePanel;
 import tilemap.Background;
+import util.ErrorMessages;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.logging.ErrorManager;
 
 public class MenuState extends GameState{
 
@@ -74,6 +76,7 @@ public class MenuState extends GameState{
             standardFont = new Font("Arial", Font.PLAIN, 15);
 
         } catch (Exception e) {
+            ErrorMessages.ERR_BG.getText();
             e.printStackTrace();
         }
     }

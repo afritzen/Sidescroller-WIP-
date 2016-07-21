@@ -4,6 +4,7 @@ import entity.Player;
 import main.GamePanel;
 import tilemap.Background;
 import tilemap.TileMap;
+import util.ErrorMessages;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -38,14 +39,25 @@ public class Level1State extends GameState{
 
     @Override
     public void init() {
-        // init background
-        background = new Background("/backgrounds/swamp_lvl1_bg.png", 0.1);
+        try {
+            // init background
+            background = new Background("/backgrounds/swamp_lvl1_bg.png", 0.1);
 
-        // init map
-        tileMap = new TileMap(30);
-        tileMap.loadTiles("/tilesets/grasstileset.gif");
-        tileMap.loadMap("/maps/level1-1.map");
-        tileMap.setPosition(0, 0);
+        } catch (Exception e) {
+            ErrorMessages.ERR_BG.getText();
+            e.printStackTrace();
+        }
+
+        try {
+            // init map
+            tileMap = new TileMap(30);
+            tileMap.loadTiles("/tilesets/grasstileset.gif");
+            tileMap.loadMap("/maps/level1-1.map");
+            tileMap.setPosition(0, 0);
+        } catch (Exception e) {
+            ErrorMessages.ERR_MAP.getText();
+            e.printStackTrace();
+        }
 
         // init player
         player = new Player(tileMap);

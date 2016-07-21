@@ -1,6 +1,8 @@
 package gamestate;
 
 import tilemap.Background;
+import util.ErrorMessages;
+import util.Options;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +13,6 @@ import java.awt.event.KeyEvent;
 public class CreditsState extends GameState{
 
     private static final String CREDITS = "Credits";
-    private static final String BACK_OPTION = "back";
 
     /**
      * Space between left screen border and credits.
@@ -64,7 +65,7 @@ public class CreditsState extends GameState{
             standardFont = new Font("Arial", Font.BOLD, 15);
             creditsFont = new Font("Arial", Font.PLAIN, 10);
         } catch (Exception e) {
-            System.out.println("Error loading background image!");
+            ErrorMessages.ERR_BG.getText();
             e.printStackTrace();
         }
     }
@@ -87,7 +88,7 @@ public class CreditsState extends GameState{
         // draw back-option
         graphics2D.setColor(standardColor);
         graphics2D.setFont(standardFont);
-        graphics2D.drawString(BACK_OPTION, 270, 220);
+        graphics2D.drawString(Options.BACK.getText(), 270, 220);
     }
 
     /**

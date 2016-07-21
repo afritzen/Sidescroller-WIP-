@@ -1,6 +1,7 @@
 package entity;
 
 import tilemap.TileMap;
+import util.ErrorMessages;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -92,7 +93,7 @@ public class Fireball extends MapObject{
 
 
         } catch (Exception e) {
-            System.out.println("Error loading fireball sprites!");
+            ErrorMessages.ERR_SPRITES.getText();
             e.printStackTrace();
         }
     }

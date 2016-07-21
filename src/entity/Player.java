@@ -1,6 +1,7 @@
 package entity;
 
 import tilemap.TileMap;
+import util.ErrorMessages;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -126,7 +127,7 @@ public class Player extends MapObject {
             }
 
         } catch (Exception e) {
-            System.out.println("Error loading player sprites!");
+            ErrorMessages.ERR_SPRITES.getText();
             e.printStackTrace();
         }
 
