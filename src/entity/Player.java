@@ -62,7 +62,7 @@ public class Player extends MapObject {
     /**
      * Number of frames for each animation.
      */
-    private final int[] numFrames = {1, 3, 4, 6, 7};
+    private final int[] numFrames = {3, 3, 4, 6, 7};
     /**
      * Current animation of the player.
      */
