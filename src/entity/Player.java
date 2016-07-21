@@ -48,7 +48,7 @@ public class Player extends MapObject {
     private boolean firing;
     private int fireCost;
     private int fireballDamage;
-    //private ArrayList<Fireball> fireballs;
+    private ArrayList<Fireball> fireballs;
     private boolean punching;
     private int punchDamage;
     private int punchRange;
@@ -62,7 +62,7 @@ public class Player extends MapObject {
     /**
      * Number of frames for each animation.
      */
-    private final int[] numFrames = {3, 3, 4, 6, 7};
+    private final int[] numFrames = {3, 2, 4, 5, 7};
     /**
      * Current animation of the player.
      */
@@ -93,7 +93,7 @@ public class Player extends MapObject {
         fire = maxFire = 2500;
         fireCost = 200;
         fireballDamage = 5;
-        //fireballs = new ArrayList<Fireball>();
+        fireballs = new ArrayList<Fireball>();
         punchDamage = 8;
         punchRange = 40;
 
@@ -146,6 +146,32 @@ public class Player extends MapObject {
             }
         }
 
+        // fireball attack
+        // regenerate firepower
+        fire += 1;
+        if (fire > maxFire) {
+            fire = maxFire;
+        }
+        if (firing && currentAction != SHOOTING) {
+            // check if player has enough firepower
+            if (fire > fireCost) {
+                fire -= fireCost;
+                // new fireball in looking direction of the player
+                Fireball fireball = new Fireball(tileMap, facingRight);
+                fireball.setPosition(xPos+10, yPos+5);
+                fireballs.add(fireball);
+            }
+        }
+
+        // update all fireballs in the game
+        for (int i = 0; i < fireballs.size(); i++) {
+            fireballs.get(i).update();
+            if (fireballs.get(i).shouldRemove()) {
+                fireballs.remove(i);
+                i--;
+            }
+        }
+
         // set animation according to action-values
         if (punching) {
             if (currentAction != PUNCHING) {
@@ -172,7 +198,7 @@ public class Player extends MapObject {
             if (currentAction != WALKING) {
                 currentAction = WALKING;
                 animation.setFrames(sprites.get(WALKING));
-                animation.setDelay(40);
+                animation.setDelay(120);
                 width = PLAYER_SIZE;
             }
         } else {
@@ -262,6 +288,11 @@ public class Player extends MapObject {
      */
     public void draw(Graphics2D graphics2D) {
         setMapPosition();
+
+        // draw every fireball in the game
+        for (int i = 0; i < fireballs.size(); i++) {
+            fireballs.get(i).draw(graphics2D);
+        }
 
         // let player blink for a brief time when being hit
         if (flinching) {

@@ -13,7 +13,14 @@ public class CreditsState extends GameState{
     private static final String CREDITS = "Credits";
     private static final String BACK_OPTION = "back";
 
+    /**
+     * Space between left screen border and credits.
+     */
     private static final int X_OFFSET = 10;
+    /**
+     * Space between lines in credits.
+     */
+    private static final int V_SPACE = 15;
 
     /**
      * Background image.
@@ -24,6 +31,15 @@ public class CreditsState extends GameState{
     private Color standardColor;
     private Font standardFont;
     private Font creditsFont;
+
+    /**
+     * All names in the credits.
+     */
+    private String[] credits = {
+            "ForeignGuyMike",
+            "Stephen Challener (Redshrike) and Doudoulolita",
+            "JAP"
+    };
 
     /**
      * Constructor.
@@ -75,12 +91,7 @@ public class CreditsState extends GameState{
         graphics2D.drawString(CREDITS, X_OFFSET, 40);
 
         // draw credits
-        graphics2D.setFont(creditsFont);
-        graphics2D.drawString("Sprites:", X_OFFSET, 60);
-        graphics2D.drawString("\n", 200, 190);
-        graphics2D.drawString("Stephen Challener (Redshrike) and Doudoulolita", X_OFFSET, 75);
-        graphics2D.drawString("\n", 200, 190);
-        graphics2D.drawString("Backgrounds:", X_OFFSET, 90);
+        drawCredits(graphics2D);
 
         // draw back-option
         graphics2D.setColor(standardColor);
@@ -101,9 +112,28 @@ public class CreditsState extends GameState{
     }
 
     /**
+     * Dynamically draws all the names listed in the credits-array. Adds a x-offset of
+     * 10 and a vertical space of 15 to every line.
+     * @param graphics2D graphics to be drawn
+     */
+    private void drawCredits(Graphics2D graphics2D) {
+
+        graphics2D.setFont(creditsFont);
+        graphics2D.drawString("Thanks to:", X_OFFSET, 60);
+
+        for (int i = 0; i < credits.length; i++) {
+            graphics2D.drawString("\n", 200, 190);
+            graphics2D.drawString(credits[i], X_OFFSET, 60+(V_SPACE*(i+1)));
+        }
+
+    }
+
+    /**
      * Not needed here.
      * @param keyCode
      */
     @Override
     public void keyReleased(int keyCode) {}
+
 }
+
