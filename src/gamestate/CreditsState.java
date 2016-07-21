@@ -57,26 +57,17 @@ public class CreditsState extends GameState{
     @Override
     public void init() {
         try {
-
             background = new Background("/backgrounds/gate_credits_small.png", 1);
-            //background.setVector(-0.1, 0);
             titleColor = new Color(255, 255, 255);
             standardColor = new Color(128, 0, 0);
             titleFont = new Font("Century Gothic", Font.BOLD, 30);
             standardFont = new Font("Arial", Font.BOLD, 15);
             creditsFont = new Font("Arial", Font.PLAIN, 10);
-
         } catch (Exception e) {
             System.out.println("Error loading background image!");
             e.printStackTrace();
         }
     }
-
-    /**
-     * Not needed here.
-     */
-    @Override
-    public void update() {}
 
     /**
      * Draws all credit-screen components such as the title, the
@@ -134,6 +125,12 @@ public class CreditsState extends GameState{
      */
     @Override
     public void keyReleased(int keyCode) {}
+    /**
+     * Not needed here.
+     */
+    @Override
+    public void update() {}
+
 
 }
 

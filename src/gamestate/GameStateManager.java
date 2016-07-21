@@ -20,6 +20,7 @@ public class GameStateManager {
      * Index for credits.
      */
     public static final int CREDITSSTATE = 2;
+    public static final int HELPSTATE = 3;
     //TODO: create more!
 
     /**
@@ -41,6 +42,7 @@ public class GameStateManager {
         gameStates.add(new MenuState(this));
         gameStates.add(new Level1State(this));
         gameStates.add(new CreditsState(this));
+        gameStates.add(new HelpState(this));
     }
 
     /**

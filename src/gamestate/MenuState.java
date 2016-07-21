@@ -29,7 +29,6 @@ public class MenuState extends GameState{
      * Background image of this state.
      */
     private Background background;
-
     /**
      * Keeps track of what option has been selected.
      */
@@ -127,7 +126,7 @@ public class MenuState extends GameState{
                 gameStateManager.setState(GameStateManager.LEVEL1STATE);
                 break;
             case 1:
-                //TODO: help
+                gameStateManager.setState(GameStateManager.HELPSTATE);
                 break;
             case 2:
                 gameStateManager.setState(GameStateManager.CREDITSSTATE);
