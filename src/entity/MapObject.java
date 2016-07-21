@@ -48,6 +48,7 @@ public abstract class MapObject {
     protected boolean up;
     protected boolean down;
     protected boolean jumping;
+    protected boolean ducking;
     protected boolean falling;
 
     protected double moveSpeed;
@@ -232,6 +233,10 @@ public abstract class MapObject {
 
     public void setJumping(boolean jumping) {
         this.jumping = jumping;
+    }
+
+    public void setDucking(boolean ducking) {
+        this.ducking = ducking;
     }
 
     public int getxPos() {

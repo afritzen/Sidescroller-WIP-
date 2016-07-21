@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfd7954b-3a39-43d4-adf2-42999f777e84" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/sprites/player/player_sprites.png" afterPath="$PROJECT_DIR$/resources/sprites/player/player_sprites.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/sprites/player/player_sprites.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/MapObject.java" afterPath="$PROJECT_DIR$/src/entity/MapObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/entity/Player.java" afterPath="$PROJECT_DIR$/src/entity/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gamestate/CreditsState.java" afterPath="$PROJECT_DIR$/src/gamestate/CreditsState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gamestate/Level1State.java" afterPath="$PROJECT_DIR$/src/gamestate/Level1State.java" />
     </list>
     <ignored path="Sidescroller(WIP).iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +31,12 @@
       <file leaf-file-name="MapObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entity/MapObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+            <state relative-caret-position="467">
+              <caret line="238" column="31" selection-start-line="238" selection-start-column="31" selection-end-line="238" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6442#6443#0" expanded="true" />
+                <element signature="e#6480#6481#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -52,8 +55,8 @@
       <file leaf-file-name="Level1State.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gamestate/Level1State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
-              <caret line="59" column="55" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
+            <state relative-caret-position="223">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -64,7 +67,7 @@
       <file leaf-file-name="Animation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entity/Animation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
+            <state relative-caret-position="93">
               <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
               <folding />
             </state>
@@ -89,9 +92,11 @@
         <entry file="file://$PROJECT_DIR$/src/entity/Player.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="316">
-              <caret line="160" column="54" selection-start-line="160" selection-start-column="54" selection-end-line="160" selection-end-column="54" />
+              <caret line="201" column="36" selection-start-line="201" selection-start-column="36" selection-end-line="201" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#10543#10544#0" expanded="true" />
+                <element signature="e#10569#10570#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -147,13 +152,13 @@
         <option value="$PROJECT_DIR$/src/tilemap/Tile.java" />
         <option value="$PROJECT_DIR$/src/entity/Animation.java" />
         <option value="$PROJECT_DIR$/src/tilemap/TileMap.java" />
-        <option value="$PROJECT_DIR$/src/entity/MapObject.java" />
         <option value="$PROJECT_DIR$/src/gamestate/GameStateManager.java" />
         <option value="$PROJECT_DIR$/src/gamestate/MenuState.java" />
-        <option value="$PROJECT_DIR$/src/gamestate/Level1State.java" />
         <option value="$PROJECT_DIR$/src/main/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/gamestate/CreditsState.java" />
         <option value="$PROJECT_DIR$/src/entity/Fireball.java" />
+        <option value="$PROJECT_DIR$/src/entity/MapObject.java" />
+        <option value="$PROJECT_DIR$/src/gamestate/Level1State.java" />
         <option value="$PROJECT_DIR$/src/entity/Player.java" />
       </list>
     </option>
@@ -332,6 +337,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="fireball" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sidescroller(WIP)" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sidescroller(WIP)" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -713,6 +732,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6480#6481#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -753,6 +774,8 @@
           <caret line="289" column="0" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#10543#10544#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -763,6 +786,8 @@
           <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6480#6481#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -795,6 +820,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#10543#10544#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -805,6 +832,8 @@
           <caret line="203" column="38" selection-start-line="203" selection-start-column="38" selection-end-line="203" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6480#6481#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1075,24 +1104,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gamestate/Level1State.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="59" column="55" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/Animation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1118,16 +1129,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/MapObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Fireball.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -1140,12 +1141,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/MapObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="238" column="31" selection-start-line="238" selection-start-column="31" selection-end-line="238" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6442#6443#0" expanded="true" />
+            <element signature="e#6480#6481#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/Animation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gamestate/Level1State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
-          <caret line="160" column="54" selection-start-line="160" selection-start-column="54" selection-end-line="160" selection-end-column="54" />
+          <caret line="201" column="36" selection-start-line="201" selection-start-column="36" selection-end-line="201" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#10543#10544#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
           </folding>
         </state>
       </provider>

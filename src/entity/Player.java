@@ -1,6 +1,5 @@
 package entity;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import tilemap.TileMap;
 
 import javax.imageio.ImageIO;
@@ -24,16 +23,17 @@ public class Player extends MapObject {
     /**
      * Amount of different animations in spritesheet.
      */
-    private static final int ANIMATIONS_TOTAL = 5;
+    private static final int ANIMATIONS_TOTAL = 7;
 
     // indices of animations in main-array
     private static final int IDLE = 0;
     private static final int JUMPING = 1;
     private static final int PUNCHING = 2;
-    //private static final int FALLING = 3;
-    //private static final int GLIDING = 4;
-    private static final int SHOOTING = 3;
+    private static final int SHOOTING_FIRE = 3;
     private static final int WALKING = 4;
+    private static final int DUCKING = 5;
+    private static final int SHOOTING_ICE = 6;
+    private static final int DYING = 7;
 
     // abilities/stats
     private int health;
@@ -45,15 +45,18 @@ public class Player extends MapObject {
     private long flinchingTimer;
 
     // attacks
-    private boolean firing;
+    private boolean firingFireball;
     private int fireCost;
     private int fireballDamage;
     private ArrayList<Fireball> fireballs;
     private boolean punching;
     private int punchDamage;
     private int punchRange;
+    private boolean ice;
+    private int iceDamage;
+    private int iceRange;
 
-   // private boolean gliding;
+    // private boolean gliding;
 
     /**
      * Holds all sprites from the spritesheet.
@@ -62,7 +65,7 @@ public class Player extends MapObject {
     /**
      * Number of frames for each animation.
      */
-    private final int[] numFrames = {3, 2, 4, 5, 7};
+    private final int[] numFrames = {3, 2, 4, 5, 7, 1, 3, 3};
     /**
      * Current animation of the player.
      */
@@ -96,10 +99,12 @@ public class Player extends MapObject {
         fireballs = new ArrayList<Fireball>();
         punchDamage = 8;
         punchRange = 40;
+        iceDamage = 15;
+        iceRange = 50;
 
         // load sprites
         try {
-            BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/sprites/player/player_sprites.png"));
+            BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/sprites/player/player_sprites_new.png"));
 
             sprites = new ArrayList<BufferedImage[]>();
             // create new array for every animation-style
@@ -108,7 +113,13 @@ public class Player extends MapObject {
 
                 // create sub-array for every frame of the animation
                 for (int j = 0; j < numFrames[i]; j++) {
-                    bufferedImage[j] = spritesheet.getSubimage(j*width, i*height, width, height);
+
+                    if (i != 6) {
+                        bufferedImage[j] = spritesheet.getSubimage(j*width, i*height, width, height);
+                    } else {
+                        // ice animation needs a bigger size
+                        bufferedImage[j] = spritesheet.getSubimage(j*width*2, i*height, width, height);
+                    }
                 }
 
                 sprites.add(bufferedImage);
@@ -140,9 +151,13 @@ public class Player extends MapObject {
             if (animation.hasPlayedOnce()) {
                 punching = false;
             }
-        } else if (currentAction == SHOOTING) {
+        } else if (currentAction == SHOOTING_FIRE) {
             if (animation.hasPlayedOnce()) {
-                firing = false;
+                firingFireball = false;
+            }
+        } else if (currentAction == SHOOTING_ICE) {
+            if (animation.hasPlayedOnce()) {
+                ice = false;
             }
         }
 
@@ -152,7 +167,7 @@ public class Player extends MapObject {
         if (fire > maxFire) {
             fire = maxFire;
         }
-        if (firing && currentAction != SHOOTING) {
+        if (firingFireball && currentAction != SHOOTING_FIRE) {
             // check if player has enough firepower
             if (fire > fireCost) {
                 fire -= fireCost;
@@ -180,10 +195,17 @@ public class Player extends MapObject {
                 animation.setDelay(120);
                 width = PLAYER_SIZE;
             }
-        } else if (firing) {
-            if (currentAction != SHOOTING) {
-                currentAction = SHOOTING;
-                animation.setFrames(sprites.get(SHOOTING));
+        } else if (ice) {
+            if (currentAction != SHOOTING_ICE) {
+                currentAction = SHOOTING_ICE;
+                animation.setFrames(sprites.get(SHOOTING_ICE));
+                animation.setDelay(300);
+                width = PLAYER_SIZE*2;
+            }
+        } else if (firingFireball) {
+            if (currentAction != SHOOTING_FIRE) {
+                currentAction = SHOOTING_FIRE;
+                animation.setFrames(sprites.get(SHOOTING_FIRE));
                 animation.setDelay(200);
                 width = PLAYER_SIZE;
             }
@@ -201,6 +223,13 @@ public class Player extends MapObject {
                 animation.setDelay(120);
                 width = PLAYER_SIZE;
             }
+        } else if (ducking) {
+            if (currentAction != DUCKING) {
+                currentAction = DUCKING;
+                animation.setFrames(sprites.get(DUCKING));
+                animation.setDelay(100);
+                width = PLAYER_SIZE;
+            }
         } else {
             if (currentAction != IDLE) {
                 currentAction = IDLE;
@@ -213,7 +242,7 @@ public class Player extends MapObject {
         animation.update();
 
         // set direction to face
-        if (currentAction != PUNCHING && currentAction != SHOOTING) {
+        if (currentAction != PUNCHING && currentAction != SHOOTING_FIRE && currentAction != SHOOTING_ICE) {
             if (right) {
                 facingRight = true;
             }
@@ -253,7 +282,8 @@ public class Player extends MapObject {
             }
         }
 
-        if ((currentAction == PUNCHING || currentAction == SHOOTING) && !(jumping || falling)){
+        if ((currentAction == PUNCHING || currentAction == SHOOTING_FIRE || currentAction == SHOOTING_ICE)
+                && !(jumping || falling)){
             // no moving while attacking
             dX = 0;
         }
@@ -311,11 +341,15 @@ public class Player extends MapObject {
     }
 
     public void setFiring() {
-        firing = true;
+        firingFireball = true;
     }
 
     public void setPunching() {
         punching = true;
+    }
+
+    public void setIce() {
+        ice = true;
     }
 
     public int getMaxHealth() {

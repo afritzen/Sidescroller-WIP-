@@ -88,12 +88,16 @@ public class Level1State extends GameState{
                 break;
             case KeyEvent.VK_DOWN:
                 player.setDown(true);
+                player.setDucking(true);
                 break;
             case KeyEvent.VK_SPACE:
                 player.setJumping(true);
                 break;
             case KeyEvent.VK_W:
                 player.setPunching();
+                break;
+            case KeyEvent.VK_Q:
+                player.setIce();
                 break;
             case KeyEvent.VK_E:
                 player.setFiring();
@@ -123,6 +127,7 @@ public class Level1State extends GameState{
                 break;
             case KeyEvent.VK_DOWN:
                 player.setDown(false);
+                player.setDucking(false);
                 break;
             case KeyEvent.VK_W:
                 player.setJumping(false);
