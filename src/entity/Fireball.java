@@ -15,11 +15,16 @@ public class Fireball extends MapObject{
     public static final int FIREBALL_HEIGHT = 20;
     public static final int COLLISION_BOX_HEIGHT = 15;
     public static final int COLLISION_BOX_WIDTH = 15;
-
-    private final int numFrames = 4;
-
     /**
-     * Determines wheter fireball has hit something.
+     * Amount of frames for normal animation.
+     */
+    private final int numFrames = 4;
+    /**
+     * Amount of frames for hit animation.
+     */
+    private final int numFramesHit = 2;
+    /**
+     * Determines whether fireball has hit something.
      */
     private boolean hit;
     /**
@@ -31,6 +36,10 @@ public class Fireball extends MapObject{
      */
     private BufferedImage[] sprites;
     /**
+     * Sprites for fireballs that hit a target.
+     */
+    private BufferedImage[] spritesHit;
+    /**
      * Animation that is played when fireball hits something.
      */
     private BufferedImage[] hitSprites;
@@ -40,7 +49,7 @@ public class Fireball extends MapObject{
     private Animation animation;
 
     /**
-     * Initializes fireball.
+     * Initializes fireball and loads needed sprites.
      * @param tileMap map the fireball is active in
      * @param right determines which direction the fireball has to face
      */
@@ -69,6 +78,14 @@ public class Fireball extends MapObject{
                 sprites[i] = spritesheet.getSubimage(i*width, 0, width, height);
             }
 
+            BufferedImage spritesheetHit = ImageIO.read(getClass().getResourceAsStream("/sprites/fireball/fireball_hit_sprites.png"));
+            spritesHit = new BufferedImage[numFramesHit];
+
+            // same for hit animation (different spritesheet)
+            for (int i = 0; i < spritesHit.length; i++) {
+                spritesHit[i] = spritesheetHit.getSubimage(i*width, 0, width, height);
+            }
+
             animation = new Animation();
             animation.setFrames(sprites);
             animation.setDelay(70);
@@ -80,6 +97,10 @@ public class Fireball extends MapObject{
         }
     }
 
+    /**
+     * Checks if the fireball has hit something (block, enemy, etc.) and
+     * sets it's properties accordingly.
+     */
     public void update() {
         checkTileMapCollision();
         setPosition(xTemp, yTemp);
@@ -96,6 +117,10 @@ public class Fireball extends MapObject{
         }
     }
 
+    /**
+     * Draws a fireball depending on in which direction it is flying.
+     * @param graphics2D graphics to be drawn
+     */
     public void draw(Graphics2D graphics2D) {
         setMapPosition();
 
@@ -106,11 +131,16 @@ public class Fireball extends MapObject{
         }
     }
 
+    /**
+     * Changes to hit animation when fireball has hit a target.
+     */
     public void setHit() {
         if (hit) {
             return;
         }
         hit = true;
+        animation.setFrames(spritesHit);
+        animation.setDelay(70);
         dX = 0;
     }
 
