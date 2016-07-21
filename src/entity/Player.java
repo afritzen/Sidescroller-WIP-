@@ -20,7 +20,7 @@ public class Player extends MapObject {
     /**
      * Size of the invisible box that is responsible for checking collision.
      */
-    private static final int COLLISION_BOX_SIZE = 60;
+    private static final int COLLISION_BOX_SIZE = 57;
     /**
      * Amount of different animations in spritesheet.
      */
@@ -135,41 +135,52 @@ public class Player extends MapObject {
         checkTileMapCollision();
         setPosition(xTemp, yTemp);
 
+        // stop attack animation after one time to avoid repeats
+        if (currentAction == PUNCHING) {
+            if (animation.hasPlayedOnce()) {
+                punching = false;
+            }
+        } else if (currentAction == SHOOTING) {
+            if (animation.hasPlayedOnce()) {
+                firing = false;
+            }
+        }
+
         // set animation according to action-values
         if (punching) {
             if (currentAction != PUNCHING) {
                 currentAction = PUNCHING;
                 animation.setFrames(sprites.get(PUNCHING));
-                animation.setDelay(50);
-                width = 110;
+                animation.setDelay(120);
+                width = PLAYER_SIZE;
             }
         } else if (firing) {
             if (currentAction != SHOOTING) {
                 currentAction = SHOOTING;
                 animation.setFrames(sprites.get(SHOOTING));
-                animation.setDelay(100);
-                width = 80;
+                animation.setDelay(200);
+                width = PLAYER_SIZE;
             }
         } else if (dY < 0) {
             if (currentAction != JUMPING) {
                 currentAction = JUMPING;
                 animation.setFrames(sprites.get(JUMPING));
-                animation.setDelay(-1);
-                width = 80;
+                animation.setDelay(280);
+                width = PLAYER_SIZE;
             }
         } else if (left || right) {
             if (currentAction != WALKING) {
                 currentAction = WALKING;
                 animation.setFrames(sprites.get(WALKING));
                 animation.setDelay(40);
-                width = 80;
+                width = PLAYER_SIZE;
             }
         } else {
             if (currentAction != IDLE) {
                 currentAction = IDLE;
                 animation.setFrames(sprites.get(IDLE));
                 animation.setDelay(400);
-                width = 80;
+                width = PLAYER_SIZE;
             }
         }
 

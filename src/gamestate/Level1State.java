@@ -6,6 +6,7 @@ import tilemap.Background;
 import tilemap.TileMap;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Represents the first level of the game.
@@ -69,14 +70,67 @@ public class Level1State extends GameState{
         player.draw(graphics2D);
     }
 
+    /**
+     * Sets basic movement of the player (left, right, jumping, etc.).
+     * @param keyCode code of the pressed key
+     */
     @Override
     public void keyPressed(int keyCode) {
+        switch(keyCode) {
+            case KeyEvent.VK_LEFT:
+                player.setLeft(true);
+                break;
+            case KeyEvent.VK_RIGHT:
+                player.setRight(true);
+                break;
+            case KeyEvent.VK_UP:
+                player.setUp(true);
+                break;
+            case KeyEvent.VK_DOWN:
+                player.setDown(true);
+                break;
+            case KeyEvent.VK_SPACE:
+                player.setJumping(true);
+                break;
+            case KeyEvent.VK_W:
+                player.setPunching();
+                break;
+            case KeyEvent.VK_E:
+                player.setFiring();
+                break;
+            default:
+                // do nothing
+                break;
+        }
 
     }
 
+    /**
+     * Sets player's state back to normal after key has been released.
+     * @param keyCode code of the released key
+     */
     @Override
     public void keyReleased(int keyCode) {
-
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                player.setLeft(false);
+                break;
+            case KeyEvent.VK_RIGHT:
+                player.setRight(false);
+                break;
+            case KeyEvent.VK_UP:
+                player.setUp(false);
+                break;
+            case KeyEvent.VK_DOWN:
+                player.setDown(false);
+                break;
+            case KeyEvent.VK_W:
+                player.setJumping(false);
+                break;
+            default:
+                // do nothing
+                break;
+        }
     }
 
 
