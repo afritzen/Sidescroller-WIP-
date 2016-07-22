@@ -60,7 +60,9 @@ public class Slime extends Enemy {
             animation.setFrames(sprites);
             animation.setDelay(400);
 
+            // set starting direction
             right = true;
+            facingRight = true;
 
         } catch (Exception e) {
             ErrorMessages.ERR_SPRITES.getText();

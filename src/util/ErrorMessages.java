@@ -6,7 +6,8 @@ package util;
  */
 public enum ErrorMessages {
 
-    ERR_BG("Error loading background image!"), ERR_SPRITES("Error loading sprites!"), ERR_MAP("Error loading map!");
+    ERR_BG("Error loading background image!"), ERR_SPRITES("Error loading sprites!"), ERR_MAP("Error loading map!"),
+    ERR_IMG("Error loading image!");
 
     private final String text;
 

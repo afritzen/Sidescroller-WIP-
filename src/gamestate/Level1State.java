@@ -1,6 +1,7 @@
 package gamestate;
 
 import entity.Enemy;
+import entity.HUD;
 import entity.Player;
 import entity.Slime;
 import main.GamePanel;
@@ -33,6 +34,10 @@ public class Level1State extends GameState{
      * All enemies in the level.
      */
     private ArrayList<Enemy> enemies;
+    /**
+     * HUD for this level.
+     */
+    private HUD hud;
 
     /**
      * Initializes the first level by loading the map and setting up the
@@ -75,6 +80,8 @@ public class Level1State extends GameState{
         Slime slime = new Slime(tileMap);
         slime.setPosition(100, 100);
         enemies.add(slime);
+
+        hud = new HUD(player);
     }
 
     @Override
@@ -105,6 +112,8 @@ public class Level1State extends GameState{
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(graphics2D);
         }
+        // draw HUD
+        hud.draw(graphics2D);
     }
 
     /**
