@@ -56,6 +56,7 @@ public class Fireball extends MapObject{
      */
     public Fireball(TileMap tileMap, boolean right) {
         super(tileMap);
+        facingRight = right;
         width = FIREBALL_WIDTH;
         height = FIREBALL_HEIGHT;
         collisionBoxWidth = COLLISION_BOX_WIDTH;

@@ -39,7 +39,8 @@ public class CreditsState extends GameState{
     private String[] credits = {
             "ForeignGuyMike",
             "Stephen Challener (Redshrike) and Doudoulolita",
-            "JAP"
+            "JAP",
+            "Jerom"
     };
 
     /**

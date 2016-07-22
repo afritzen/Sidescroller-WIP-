@@ -1,6 +1,8 @@
 package gamestate;
 
+import entity.Enemy;
 import entity.Player;
+import entity.Slime;
 import main.GamePanel;
 import tilemap.Background;
 import tilemap.TileMap;
@@ -8,6 +10,7 @@ import util.ErrorMessages;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * Represents the first level of the game.
@@ -26,6 +29,10 @@ public class Level1State extends GameState{
      * The player appearing in this level.
      */
     private Player player;
+    /**
+     * All enemies in the level.
+     */
+    private ArrayList<Enemy> enemies;
 
     /**
      * Initializes the first level by loading the map and setting up the
@@ -62,6 +69,12 @@ public class Level1State extends GameState{
         // init player
         player = new Player(tileMap);
         player.setPosition(100, 100);
+
+        // create one enemy
+        enemies = new ArrayList<>();
+        Slime slime = new Slime(tileMap);
+        slime.setPosition(100, 100);
+        enemies.add(slime);
     }
 
     @Override
@@ -70,6 +83,14 @@ public class Level1State extends GameState{
         player.update();
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getxPos(),
                 GamePanel.HEIGHT/2 - player.getyPos());
+
+        // make background scroll
+        background.setPosition(tileMap.getxPos(), tileMap.getyPos());
+
+        // update all enemies
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+        }
     }
 
     @Override
@@ -80,6 +101,10 @@ public class Level1State extends GameState{
         tileMap.draw(graphics2D);
         // draw player
         player.draw(graphics2D);
+        // draw all enemies
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).draw(graphics2D);
+        }
     }
 
     /**
