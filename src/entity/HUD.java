@@ -48,6 +48,8 @@ public class HUD {
     public void draw(Graphics2D graphics2D) {
         graphics2D.drawImage(hudImg, 5, 5, null);
         graphics2D.setFont(hudFont);
-        //TODO: display acrtual stats
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.drawString(player.getHealth() + "/" + player.getMaxHealth(), 40, 25);
+        graphics2D.drawString(player.getFire()/100 + "/" + player.getMaxFire()/100, 40, 50);
     }
 }

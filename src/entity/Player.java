@@ -37,6 +37,7 @@ public class Player extends MapObject {
     private static final int DYING = 7;
 
     // abilities/stats
+    private int lives;
     private int health;
     private int maxHealth;
     private int fire;
@@ -83,6 +84,7 @@ public class Player extends MapObject {
         height = PLAYER_SIZE;
         collisionBoxWidth = COLLISION_BOX_SIZE;
         collisionBoxHeight = COLLISION_BOX_SIZE;
+        lives = 3;
 
         moveSpeed = 0.3;
         maxSpeed = 1.6;
@@ -97,7 +99,7 @@ public class Player extends MapObject {
         fire = maxFire = 2500;
         fireCost = 200;
         fireballDamage = 5;
-        fireballs = new ArrayList<Fireball>();
+        fireballs = new ArrayList<>();
         punchDamage = 8;
         punchRange = 40;
         iceDamage = 15;

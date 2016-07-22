@@ -20,9 +20,14 @@ public class GameStateManager {
      * Index for credits.
      */
     public static final int CREDITSSTATE = 2;
+    /**
+     * Index for instructions.
+     */
     public static final int HELPSTATE = 3;
-    //TODO: create more!
-
+    /**
+     * Index for death screen.
+     */
+    public static final int DEATHSTATE = 4;
     /**
      * All saved states.
      */
@@ -43,6 +48,7 @@ public class GameStateManager {
         gameStates.add(new Level1State(this));
         gameStates.add(new CreditsState(this));
         gameStates.add(new HelpState(this));
+        gameStates.add(new DeathState(this));
     }
 
     /**
