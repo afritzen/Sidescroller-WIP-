@@ -295,7 +295,6 @@ public class Player extends MapObject {
             }
 
             if (intersects(enemy)) {
-                System.out.println("hit!");
                 hit(enemy.getDamage());
             }
         }
@@ -317,9 +316,14 @@ public class Player extends MapObject {
         }
         if (health == 0) {
             dead = true;
+            lives -= 1;
         }
         flinching = true;
         flinchingTimer = System.nanoTime();
+    }
+
+    public boolean lostAllLives() {
+        return lives == 0;
     }
 
     /**
@@ -422,6 +426,10 @@ public class Player extends MapObject {
         ice = true;
     }
 
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -436,5 +444,9 @@ public class Player extends MapObject {
 
     public int getMaxFire() {
         return maxFire;
+    }
+
+    public int getLives() {
+        return lives;
     }
 }

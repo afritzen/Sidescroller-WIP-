@@ -1,9 +1,6 @@
 package gamestate;
 
-import entity.Enemy;
-import entity.HUD;
-import entity.Player;
-import entity.Slime;
+import entity.*;
 import main.GamePanel;
 import tilemap.Background;
 import tilemap.TileMap;
@@ -34,6 +31,10 @@ public class Level1State extends GameState{
      * All enemies in the level.
      */
     private ArrayList<Enemy> enemies;
+    /**
+     * Explosion taking place on the screen.
+     */
+    private ArrayList<Explosion> explosions;
     /**
      * HUD for this level.
      */
@@ -76,7 +77,7 @@ public class Level1State extends GameState{
         player.setPosition(100, 100);
 
         populateEnemies();
-
+        explosions = new ArrayList<>();
         hud = new HUD(player);
     }
 
@@ -105,6 +106,10 @@ public class Level1State extends GameState{
     public void update() {
         // update player and set camera
         player.update();
+        // check for game-over
+        if (player.lostAllLives()) {
+            gameStateManager.setState(GameStateManager.DEATHSTATE);
+        }
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getxPos(),
                 GamePanel.HEIGHT/2 - player.getyPos());
 
@@ -116,7 +121,18 @@ public class Level1State extends GameState{
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).update();
             if (enemies.get(i).isDead()) {
+                // new explosion with it's origin where the enemy once was
+                explosions.add(new Explosion(enemies.get(i).getxPos(), enemies.get(i).getyPos()));
                 enemies.remove(i);
+                i--;
+            }
+        }
+
+        // update explosions
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).update();
+            if (explosions.get(i).shouldRemove()) {
+                explosions.remove(i);
                 i--;
             }
         }
@@ -131,8 +147,13 @@ public class Level1State extends GameState{
         // draw player
         player.draw(graphics2D);
         // draw all enemies
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).draw(graphics2D);
+        for (Enemy enemy : enemies) {
+            enemy.draw(graphics2D);
+        }
+        // draw all explosions
+        for (Explosion explosion : explosions) {
+            explosion.setMapPosition((int)tileMap.getxPos(), (int)tileMap.getyPos());
+            explosion.draw(graphics2D);
         }
         // draw HUD
         hud.draw(graphics2D);

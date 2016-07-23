@@ -20,6 +20,10 @@ public class HUD {
      */
     private BufferedImage hudImg;
     /**
+     * Icon representing one life of the player.
+     */
+    private BufferedImage lifeIcon;
+    /**
      * Font that displays stats.
      */
     private Font hudFont;
@@ -34,6 +38,7 @@ public class HUD {
         // load image
         try {
             hudImg = ImageIO.read(getClass().getResourceAsStream("/hud/hud_small.png"));
+            lifeIcon = ImageIO.read(getClass().getResourceAsStream("/hud/life_icon.png"));
             hudFont = new Font("Arial", Font.PLAIN, 15);
         } catch(Exception e) {
             ErrorMessages.ERR_IMG.getText();
@@ -47,9 +52,11 @@ public class HUD {
      */
     public void draw(Graphics2D graphics2D) {
         graphics2D.drawImage(hudImg, 5, 5, null);
+        graphics2D.drawImage(lifeIcon, 120, 10, null);
         graphics2D.setFont(hudFont);
         graphics2D.setColor(Color.WHITE);
         graphics2D.drawString(player.getHealth() + "/" + player.getMaxHealth(), 40, 25);
         graphics2D.drawString(player.getFire()/100 + "/" + player.getMaxFire()/100, 40, 50);
+        graphics2D.drawString("x" + player.getLives(), 145, 25);
     }
 }
