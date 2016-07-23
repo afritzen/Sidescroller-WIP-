@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Slime extends Enemy {
 
     private static final int SLIME_SIZE = 32;
-    private static final int COLLISION_BOX_HEIGHT = 5;
+    private static final int COLLISION_BOX_HEIGHT = 20;
     private static final int COLLISION_BOX_WIDTH = 20;
 
     /**
@@ -99,8 +99,8 @@ public class Slime extends Enemy {
         // check blinking time after hit
         if (flinching) {
             long elapsed = (System.nanoTime() - flinchTimer)/1000000;
-            if (elapsed/100%2 == 0) {
-                return;
+            if (elapsed > 400) {
+                flinching = false;
             }
         }
 

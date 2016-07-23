@@ -190,6 +190,15 @@ public class Player extends MapObject {
             }
         }
 
+        // check if flinching time is over
+        if (flinching) {
+            long elapsed = (System.nanoTime()-flinchingTimer)/1000000;
+            if (elapsed > 1000) {
+                // one second of flincing, then stop
+                flinching = false;
+            }
+        }
+
         // set animation according to action-values
         if (punching) {
             if (currentAction != PUNCHING) {
@@ -261,7 +270,6 @@ public class Player extends MapObject {
      */
     public void checkAttack(ArrayList<Enemy> enemies) {
         for (Enemy enemy : enemies) {
-
             // check punching
             if (punching) {
                 if (facingRight) {
@@ -282,15 +290,36 @@ public class Player extends MapObject {
                 if (fireball.intersects(enemy)) {
                     enemy.hit(fireballDamage);
                     fireball.setHit();
-                  //  break;
+                    break;
                 }
             }
 
-            /*if (intersects(enemy)) {
+            if (intersects(enemy)) {
+                System.out.println("hit!");
                 hit(enemy.getDamage());
-            }*/
-
+            }
         }
+    }
+
+
+    /**
+     * Deals damage to the player when running into an enemy.
+     * @param damage damage dealt to the player
+     */
+    public void hit(int damage) {
+        if (flinching) {
+            // invincible while blinking
+            return;
+        }
+        health -= damage;
+        if (health < 0) {
+            health = 0;
+        }
+        if (health == 0) {
+            dead = true;
+        }
+        flinching = true;
+        flinchingTimer = System.nanoTime();
     }
 
     /**

@@ -80,8 +80,8 @@ public abstract class MapObject {
      * @return hitbox
      */
     public Rectangle getRectangle() {
-        return new Rectangle((int)xPos-collisionBoxWidth, (int)yPos-collisionBoxHeight,
-                collisionBoxWidth, collisionBoxHeight);
+            return new Rectangle((int)xPos-collisionBoxWidth, (int)yPos-collisionBoxHeight,
+                    collisionBoxWidth, collisionBoxHeight);
     }
 
     /**

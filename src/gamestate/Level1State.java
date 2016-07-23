@@ -87,7 +87,7 @@ public class Level1State extends GameState{
         enemies = new ArrayList<>();
         Slime slime;
         Point[] points = new Point[] {
-                new Point(200, 100),
+                new Point(200, 200),
                 new Point(860, 200),
                 new Point(1525, 200),
                 new Point(1680, 200),
@@ -96,7 +96,7 @@ public class Level1State extends GameState{
         for (Point point : points) {
             // create new enemy for this point
             slime = new Slime(tileMap);
-            slime.setPosition(point.getX(), point.getY());
+            slime.setPosition(point.x, point.y);
             enemies.add(slime);
         }
     }
@@ -119,11 +119,6 @@ public class Level1State extends GameState{
                 enemies.remove(i);
                 i--;
             }
-        }
-
-        // update all enemies
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).update();
         }
     }
 
