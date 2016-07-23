@@ -70,9 +70,9 @@ public abstract class MapObject {
      * @return collision?
      */
     public boolean intersects(MapObject other) {
-        Rectangle me = getRectangle();
-        Rectangle otherObject = getRectangle();
-        return me.intersects(otherObject);
+        Rectangle meRect = getRectangle();
+        Rectangle otherObjectRect = other.getRectangle();
+        return meRect.intersects(otherObjectRect);
     }
 
     /**

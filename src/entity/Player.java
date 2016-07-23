@@ -195,7 +195,7 @@ public class Player extends MapObject {
             if (currentAction != PUNCHING) {
                 currentAction = PUNCHING;
                 animation.setFrames(sprites.get(PUNCHING));
-                animation.setDelay(120);
+                animation.setDelay(70);
                 width = PLAYER_SIZE;
             }
         } else if (ice) {
@@ -252,6 +252,44 @@ public class Player extends MapObject {
             if (left) {
                 facingRight = false;
             }
+        }
+    }
+
+    /**
+     * Checks for every attack whether it has hit an enemy.
+     * @param enemies attackable enemies in the current level
+     */
+    public void checkAttack(ArrayList<Enemy> enemies) {
+        for (Enemy enemy : enemies) {
+
+            // check punching
+            if (punching) {
+                if (facingRight) {
+                    if ((enemy.getxPos() > xPos) && (enemy.getxPos() < xPos+punchRange)
+                            && (enemy.getyPos() > yPos-height/2) && (enemy.getyPos()< yPos+height/2)) {
+                        enemy.hit(punchDamage);
+                    }
+                } else {
+                    if (enemy.getxPos() < xPos && enemy.getxPos() > xPos - punchRange
+                            && enemy.getyPos() > yPos - height / 2 &&    enemy.getyPos() < yPos + height / 2) {
+                        enemy.hit(punchDamage);
+                    }
+                }
+            }
+
+            // check fireballs
+            for (Fireball fireball : fireballs) {
+                if (fireball.intersects(enemy)) {
+                    enemy.hit(fireballDamage);
+                    fireball.setHit();
+                  //  break;
+                }
+            }
+
+            /*if (intersects(enemy)) {
+                hit(enemy.getDamage());
+            }*/
+
         }
     }
 

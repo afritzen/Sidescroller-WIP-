@@ -75,13 +75,30 @@ public class Level1State extends GameState{
         player = new Player(tileMap);
         player.setPosition(100, 100);
 
-        // create one enemy
-        enemies = new ArrayList<>();
-        Slime slime = new Slime(tileMap);
-        slime.setPosition(100, 100);
-        enemies.add(slime);
+        populateEnemies();
 
         hud = new HUD(player);
+    }
+
+    /**
+     * Adds some enemies to the level.
+     */
+    private void populateEnemies() {
+        enemies = new ArrayList<>();
+        Slime slime;
+        Point[] points = new Point[] {
+                new Point(200, 100),
+                new Point(860, 200),
+                new Point(1525, 200),
+                new Point(1680, 200),
+                new Point(1800, 200)
+        };
+        for (Point point : points) {
+            // create new enemy for this point
+            slime = new Slime(tileMap);
+            slime.setPosition(point.getX(), point.getY());
+            enemies.add(slime);
+        }
     }
 
     @Override
@@ -93,6 +110,16 @@ public class Level1State extends GameState{
 
         // make background scroll
         background.setPosition(tileMap.getxPos(), tileMap.getyPos());
+
+        // check attacking for all enemies
+        player.checkAttack(enemies);
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+            if (enemies.get(i).isDead()) {
+                enemies.remove(i);
+                i--;
+            }
+        }
 
         // update all enemies
         for (int i = 0; i < enemies.size(); i++) {
@@ -147,6 +174,9 @@ public class Level1State extends GameState{
                 break;
             case KeyEvent.VK_E:
                 player.setFiring();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                gameStateManager.setState(GameStateManager.MENUSTATE);
                 break;
             default:
                 // do nothing

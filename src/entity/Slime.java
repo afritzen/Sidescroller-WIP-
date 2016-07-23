@@ -11,7 +11,7 @@ public class Slime extends Enemy {
 
     private static final int SLIME_SIZE = 32;
     private static final int COLLISION_BOX_HEIGHT = 5;
-    private static final int COLLISION_BOX_WIDTH = 15;
+    private static final int COLLISION_BOX_WIDTH = 20;
 
     /**
      * Subimages from spritesheet.
