@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Slime extends Enemy {
 
     private static final int SLIME_SIZE = 32;
-    private static final int COLLISION_BOX_SIZE = 15;
+    private static final int COLLISION_BOX_SIZE = 20;
 
     /**
      * Subimages from spritesheet.
@@ -33,8 +33,7 @@ public class Slime extends Enemy {
         super(tileMap);
 
         // set slime-specific attributes
-        width = SLIME_SIZE;
-        height = SLIME_SIZE;
+        width = height = SLIME_SIZE;
         collisionBoxHeight = COLLISION_BOX_SIZE;
         collisionBoxWidth = COLLISION_BOX_SIZE;
 

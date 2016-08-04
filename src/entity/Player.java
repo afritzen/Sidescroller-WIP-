@@ -1,5 +1,6 @@
 package entity;
 
+import main.GamePanel;
 import tilemap.TileMap;
 import util.ErrorMessages;
 
@@ -38,6 +39,8 @@ public class Player extends MapObject {
 
     // abilities/stats
     private int lives;
+    private int checkpointX;
+    private int checkpointY;
     private int health;
     private int maxHealth;
     private int fire;
@@ -45,6 +48,7 @@ public class Player extends MapObject {
     private boolean dead;
     private boolean flinching;
     private long flinchingTimer;
+    private long fallingTimer;
 
     // attacks
     private boolean firingFireball;
@@ -85,6 +89,8 @@ public class Player extends MapObject {
         collisionBoxWidth = COLLISION_BOX_SIZE;
         collisionBoxHeight = COLLISION_BOX_SIZE;
         lives = 3;
+        checkpointX = 100;
+        checkpointY = 100;
 
         moveSpeed = 0.3;
         maxSpeed = 1.6;
@@ -317,6 +323,15 @@ public class Player extends MapObject {
         if (health == 0) {
             dead = true;
             lives -= 1;
+            if (lives < 0) {
+                lives = 0;
+            }
+            if (lives != 0) {
+                // set back to latest checkpoint
+                health = maxHealth;
+                fire = maxFire;
+                setPosition(checkpointX, checkpointY);
+            }
         }
         flinching = true;
         flinchingTimer = System.nanoTime();
@@ -366,6 +381,7 @@ public class Player extends MapObject {
         if (jumping && !falling) {
             dY = jumpStart;
             falling = true;
+            fallingTimer = System.nanoTime();
         }
 
         // falling
@@ -382,6 +398,14 @@ public class Player extends MapObject {
             }
             if (dY > maxFallSpeed) {
                 dY = maxFallSpeed;
+            }
+            if (yPos > GamePanel.HEIGHT) {
+                // player falls out of screen and dies
+                lives -= 1;
+                setPosition(checkpointX, checkpointY);
+                health = maxHealth;
+                fire = maxFire;
+                falling = false;
             }
         }
     }
@@ -430,6 +454,14 @@ public class Player extends MapObject {
         this.lives = lives;
     }
 
+    public void setCheckpointX(int checkpointXNew) {
+        checkpointX = checkpointXNew;
+    }
+
+    public void setCheckpointY(int checkpointYNew) {
+        checkpointY = checkpointYNew;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -448,5 +480,13 @@ public class Player extends MapObject {
 
     public int getLives() {
         return lives;
+    }
+
+    public int getCheckpointX() {
+        return checkpointX;
+    }
+
+    public int getCheckpointY() {
+        return checkpointY;
     }
 }

@@ -36,6 +36,14 @@ public class Level1State extends GameState{
      */
     private ArrayList<Explosion> explosions;
     /**
+     * All checkpoints in the level.
+     */
+    private ArrayList<Checkpoint> checkpoints;
+    /**
+     * All potions in the level.
+     */
+    private ArrayList<Potion> potions;
+    /**
      * HUD for this level.
      */
     private HUD hud;
@@ -78,6 +86,10 @@ public class Level1State extends GameState{
 
         populateEnemies();
         explosions = new ArrayList<>();
+        checkpoints = new ArrayList<>();
+        addCheckpoints();
+        potions = new ArrayList<>();
+        addPotions();
         hud = new HUD(player);
     }
 
@@ -102,12 +114,73 @@ public class Level1State extends GameState{
         }
     }
 
+    /**
+     * Fills the level with some checkpoints at specific coordinates.
+     */
+    private void addCheckpoints() {
+       checkpoints = new ArrayList<>();
+        Checkpoint checkpoint;
+        Point[] points = new Point[] {
+            new Point(1020, 105)
+        };
+        for (Point point : points) {
+            checkpoint = new Checkpoint(tileMap);
+            checkpoint.setPosition(point.x, point.y);
+            checkpoint.setMapPosition(point.x, point.y);
+            checkpoints.add(checkpoint);
+        }
+    }
+
+    /**
+     * Fills the level with some life-/mana-potions.
+     */
+    private void addPotions() {
+        Point[] pointsLife = new Point[] {
+          new Point(1685, 210)
+        };
+        for (Point point : pointsLife) {
+            Potion potion = new Potion(tileMap, 0);
+            potion.setPosition(point.x, point.y);
+            potion.setMapPosition(point.x, point.y);
+            potions.add(potion);
+        }
+
+        Point[] pointsMana = new Point[] {
+          new Point(800, 210)
+        };
+        for (Point point : pointsMana) {
+            Potion potion = new Potion(tileMap, 1);
+            potion.setPosition(point.x, point.y);
+            potion.setMapPosition(point.x, point.y);
+            potions.add(potion);
+        }
+    }
+
+    /**
+     * Checks whether the player has passed a checkpoint.
+     */
+    private void checkForCheckpoints() {
+        for (Checkpoint checkpoint : checkpoints) {
+            if (player.intersects(checkpoint)) {
+                player.setCheckpointX(checkpoint.getxPos());
+                player.setCheckpointY(checkpoint.getyPos());
+            }
+        }
+    }
+
     @Override
     public void update() {
         // update player and set camera
         player.update();
+        checkForCheckpoints();
         // check for game-over
         if (player.lostAllLives()) {
+            try {
+                // small break between game an death-screen
+                Thread.sleep(2000);
+            } catch(InterruptedException ie) {
+                ie.printStackTrace();
+            }
             gameStateManager.setState(GameStateManager.DEATHSTATE);
         }
         tileMap.setPosition(GamePanel.WIDTH/2 - player.getxPos(),
@@ -136,6 +209,12 @@ public class Level1State extends GameState{
                 i--;
             }
         }
+
+        // update checkpoints
+        for(Checkpoint checkpoint : checkpoints) {
+            checkpoint.update();
+        }
+
     }
 
     @Override
@@ -154,6 +233,15 @@ public class Level1State extends GameState{
         for (Explosion explosion : explosions) {
             explosion.setMapPosition((int)tileMap.getxPos(), (int)tileMap.getyPos());
             explosion.draw(graphics2D);
+        }
+        // draw checkpoints
+        for (Checkpoint checkpoint : checkpoints) {
+            checkpoint.setMapPosition((int)tileMap.getxPos(), (int)tileMap.getyPos());
+            checkpoint.draw(graphics2D);
+        }
+        for (Potion potion : potions) {
+            potion.setMapPosition((int)tileMap.getxPos(), (int)tileMap.getyPos());
+            potion.draw(graphics2D);
         }
         // draw HUD
         hud.draw(graphics2D);

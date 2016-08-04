@@ -59,8 +59,7 @@ public class Explosion {
     public Explosion(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
-        width = EXPLOSION_SIZE;
-        height = EXPLOSION_SIZE;
+        width = height = EXPLOSION_SIZE;
 
         try {
             BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/sprites/explosions/explosions_hit.png"));
