@@ -11,12 +11,19 @@ import java.nio.Buffer;
 public class Potion extends MapObject {
 
     public static final int POTION_SIZE = 20;
-    public static final int COLLISION_BOX_SIZE = 15;
+    public static final int COLLISION_BOX_WIDTH = 20;
+    public static final int COLLISION_BOX_HEIGHT = 80;
+
+    public static final int COLLISION_BOX_SIZE = 20;
 
     /**
      * Determines whether this is a life- or mana-potion.
      */
     private int type;
+    /**
+     * Amount of life/mana the potions brings back.
+     */
+    private int power;
     /**
      * Sprite of the potion.
      */
@@ -31,10 +38,22 @@ public class Potion extends MapObject {
         super(tileMap);
         this.type = type;
         width = height = POTION_SIZE;
-        collisionBoxHeight = collisionBoxWidth = COLLISION_BOX_SIZE;
+        collisionBoxHeight = COLLISION_BOX_HEIGHT;
+        collisionBoxWidth = COLLISION_BOX_WIDTH;
+              //  collisionBoxWidth = COLLISION_BOX_SIZE;
+        switch (type) {
+            case 0: case 2:
+                // small potion
+                power = 5;
+                break;
+            case 1:case 3:
+                // big potion
+                power = 10;
+                break;
+            }
 
         // load sprites according to type
-        if (type == 0) {
+        if (type == 0 || type == 1) {
 
             try {
                 potionImg = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions/potion_life_sprite.png"));
@@ -43,7 +62,7 @@ public class Potion extends MapObject {
                 e.printStackTrace();
             }
 
-        } else if (type == 1) {
+        } else if (type == 2 || type == 3) {
             try {
                 potionImg = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions/potion_mana_sprite.png"));
             } catch (Exception e) {
@@ -74,6 +93,10 @@ public class Potion extends MapObject {
 
     public int getType() {
         return type;
+    }
+
+    public int getPower() {
+        return power;
     }
 
 }

@@ -438,6 +438,28 @@ public class Player extends MapObject {
         }
     }
 
+    /**
+     * Increases the current health.
+     * @param power received by a potion or shrine
+     */
+    public void increaseLife(int power) {
+        health += power;
+        if (health > maxHealth) {
+            health = maxHealth;
+        }
+    }
+
+    /**
+     * Increases the current firepower.
+     * @param power received by a potion or shrine
+     */
+    public void increaseFire(int power) {
+        fire += power;
+        if (fire > maxFire) {
+            fire = maxFire;
+        }
+    }
+
     public void setFiring() {
         firingFireball = true;
     }

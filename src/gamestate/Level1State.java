@@ -136,7 +136,7 @@ public class Level1State extends GameState{
      */
     private void addPotions() {
         Point[] pointsLife = new Point[] {
-          new Point(1685, 210)
+          new Point(290, 210)
         };
         for (Point point : pointsLife) {
             Potion potion = new Potion(tileMap, 0);
@@ -146,10 +146,10 @@ public class Level1State extends GameState{
         }
 
         Point[] pointsMana = new Point[] {
-          new Point(800, 210)
+          new Point(1000, 210)
         };
         for (Point point : pointsMana) {
-            Potion potion = new Potion(tileMap, 1);
+            Potion potion = new Potion(tileMap, 2);
             potion.setPosition(point.x, point.y);
             potion.setMapPosition(point.x, point.y);
             potions.add(potion);
@@ -168,11 +168,36 @@ public class Level1State extends GameState{
         }
     }
 
+    /**
+     * Checks whether the player has found a potion and increases life/mana
+     * accordingly.
+     */
+    private void checkForPotions() {
+        for (Potion potion : potions) {
+            if (player.intersects(potion)) {
+                if (potion.getType() == 0 || potion.getType() == 1) {
+                    if (player.getHealth() == player.getMaxHealth()) {
+                        return;
+                    }
+                    player.increaseLife(potion.getPower());
+                    potions.remove(potion);
+                } else if (potion.getType() == 2 || potion.getType() == 3) {
+                    if (player.getFire() == player.getMaxFire()) {
+
+                    }
+                    player.increaseFire(potion.getPower());
+                    potions.remove(potion);
+                }
+            }
+        }
+    }
+
     @Override
     public void update() {
         // update player and set camera
         player.update();
         checkForCheckpoints();
+        checkForPotions();
         // check for game-over
         if (player.lostAllLives()) {
             try {
