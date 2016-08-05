@@ -16,6 +16,11 @@ public class Enemy extends MapObject {
 
     protected boolean flinching;
     protected long flinchTimer;
+    /**
+     * Animation of the spritesheet's frames.
+     */
+    protected Animation animation;
+
 
     public Enemy(TileMap tileMap) {
         super(tileMap);
@@ -42,9 +47,54 @@ public class Enemy extends MapObject {
         flinchTimer = System.nanoTime();
     }
 
-    // update and draw are overwritten by subclasses
-    public void update(){}
-    public void draw(Graphics2D graphics2D){}
+    public void update() {
+
+        getNextPosition();
+        checkTileMapCollision();
+        setPosition(xTemp, yTemp);
+
+        // check blinking time after hit
+        if (flinching) {
+            long elapsed = (System.nanoTime() - flinchTimer)/1000000;
+            if (elapsed > 400) {
+                flinching = false;
+            }
+        }
+    }
+
+    public void draw(Graphics2D graphics2D){
+        setMapPosition();
+        if (facingRight) {
+            graphics2D.drawImage(animation.getImage(),(int)(xPos+xMap-width/2), (int)(yPos+yMap-height/2), null);
+        } else {
+            graphics2D.drawImage(animation.getImage(), (int)(xPos+xMap-width/2+width),
+                    (int)(yPos+yMap-height/2), -width, height, null);
+        }
+    }
+
+    /**
+     * Determines next position on the map.
+     */
+    protected void getNextPosition() {
+
+        // basic movement
+        if (left) {
+            dX -= moveSpeed;
+            if (dX < -maxSpeed) {
+                dX = -maxSpeed;
+            }
+        } else if (right) {
+            dX += moveSpeed;
+            if (dX > maxSpeed) {
+                dX = maxSpeed;
+            }
+        }
+
+        if (falling) {
+            dY += fallSpeed;
+        }
+    }
+
 
     public int getDamage() {
         return damage;
@@ -53,4 +103,9 @@ public class Enemy extends MapObject {
     public boolean isDead() {
         return dead;
     }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
 }

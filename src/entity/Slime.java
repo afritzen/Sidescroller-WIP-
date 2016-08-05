@@ -20,12 +20,7 @@ public class Slime extends Enemy {
      * Amount of frames for sprite-animation.
      */
     public static final int NUM_FRAMES_SLIME = 2;
-    /**
-     * Animation of the spritesheet's frames.
-     */
-    private Animation animation;
-
-    /**
+     /**
      * Sets basic attributes.
      * @param tileMap the map the slime appears in
      */
@@ -49,43 +44,10 @@ public class Slime extends Enemy {
         facingRight = true;
     }
 
-    /**
-     * Determines next position on the map.
-     */
-    private void getNextPosition() {
-
-        // basic movement
-        if (left) {
-            dX -= moveSpeed;
-            if (dX < -maxSpeed) {
-                dX = -maxSpeed;
-            }
-        } else if (right) {
-            dX += moveSpeed;
-            if (dX > maxSpeed) {
-                dX = maxSpeed;
-            }
-        }
-
-        if (falling) {
-            dY += fallSpeed;
-        }
-    }
-
     @Override
     public void update() {
-        getNextPosition();
-        checkTileMapCollision();
-        setPosition(xTemp, yTemp);
 
-        // check blinking time after hit
-        if (flinching) {
-            long elapsed = (System.nanoTime() - flinchTimer)/1000000;
-            if (elapsed > 400) {
-                flinching = false;
-            }
-        }
-
+        super.update();
         // go other direction after running into an obstacle
         if (right && dX == 0) {
             right = false;
@@ -101,18 +63,7 @@ public class Slime extends Enemy {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        setMapPosition();
-
-        if (facingRight) {
-            graphics2D.drawImage(animation.getImage(),(int)(xPos+xMap-width/2), (int)(yPos+yMap-height/2), null);
-        } else {
-            graphics2D.drawImage(animation.getImage(), (int)(xPos+xMap-width/2+width),
-                    (int)(yPos+yMap-height/2), -width, height, null);
-        }
-    }
-
-    public Animation getAnimation() {
-        return animation;
+        super.draw(graphics2D);
     }
 
 
