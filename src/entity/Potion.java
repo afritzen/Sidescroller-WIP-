@@ -1,21 +1,23 @@
 package entity;
 
 import tilemap.TileMap;
-import util.ErrorMessages;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class Potion extends MapObject {
 
+    /**
+     * Height and width of a single potion.
+     */
     public static final int POTION_SIZE = 20;
+    /**
+     * Height-tolerance of collision detection.
+     */
     public static final int COLLISION_BOX_WIDTH = 20;
+    /**
+     * Width-tolerance of collision detection.
+     */
     public static final int COLLISION_BOX_HEIGHT = 80;
-
-    public static final int COLLISION_BOX_SIZE = 20;
-
     /**
      * Determines whether this is a life- or mana-potion.
      */
@@ -30,7 +32,7 @@ public class Potion extends MapObject {
     private BufferedImage potionImg;
 
     /**
-     * Init attributes and load sprites.
+     * Init attributes.
      * @param tileMap map the object is located in
      * @param type 0 = life, 1 = mana
      */
@@ -40,7 +42,7 @@ public class Potion extends MapObject {
         width = height = POTION_SIZE;
         collisionBoxHeight = COLLISION_BOX_HEIGHT;
         collisionBoxWidth = COLLISION_BOX_WIDTH;
-              //  collisionBoxWidth = COLLISION_BOX_SIZE;
+
         switch (type) {
             case 0: case 2:
                 // small potion
@@ -51,25 +53,6 @@ public class Potion extends MapObject {
                 power = 10;
                 break;
             }
-
-        // load sprites according to type
-        if (type == 0 || type == 1) {
-
-            try {
-                potionImg = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions/potion_life_sprite.png"));
-            } catch(Exception e) {
-                ErrorMessages.ERR_IMG.getText();
-                e.printStackTrace();
-            }
-
-        } else if (type == 2 || type == 3) {
-            try {
-                potionImg = ImageIO.read(getClass().getResourceAsStream("/sprites/items/potions/potion_mana_sprite.png"));
-            } catch (Exception e) {
-                ErrorMessages.ERR_IMG.getText();
-                e.printStackTrace();
-            }
-        }
     }
 
     /**
@@ -89,6 +72,10 @@ public class Potion extends MapObject {
     public void setMapPosition(int xMap, int yMap) {
         this.xMap = xMap;
         this.yMap = yMap;
+    }
+
+    public void setPotionImg(BufferedImage potionImg) {
+        this.potionImg = potionImg;
     }
 
     public int getType() {

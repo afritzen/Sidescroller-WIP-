@@ -152,6 +152,7 @@ public class Level1State extends GameState{
         };
         for (Point point : pointsLife) {
             Potion potion = new Potion(tileMap, 0);
+            potion.setPotionImg(spriteFactory.getPotionLifeImage());
             potion.setPosition(point.x, point.y);
             potion.setMapPosition(point.x, point.y);
             potions.add(potion);
@@ -162,6 +163,7 @@ public class Level1State extends GameState{
         };
         for (Point point : pointsMana) {
             Potion potion = new Potion(tileMap, 2);
+            potion.setPotionImg(spriteFactory.getPotionManaImage());
             potion.setPosition(point.x, point.y);
             potion.setMapPosition(point.x, point.y);
             potions.add(potion);

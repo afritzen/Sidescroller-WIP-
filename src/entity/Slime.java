@@ -1,11 +1,7 @@
 package entity;
 
 import tilemap.TileMap;
-import util.ErrorMessages;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * A weak enemy, occurs mostly in the first two levels of the game.
