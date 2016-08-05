@@ -5,6 +5,7 @@ import main.GamePanel;
 import tilemap.Background;
 import tilemap.TileMap;
 import util.ErrorMessages;
+import util.SpriteFactory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -47,6 +48,10 @@ public class Level1State extends GameState{
      * HUD for this level.
      */
     private HUD hud;
+    /**
+     * Provides all sprites for this level.
+     */
+    private SpriteFactory spriteFactory;
 
     /**
      * Initializes the first level by loading the map and setting up the
@@ -80,16 +85,21 @@ public class Level1State extends GameState{
             e.printStackTrace();
         }
 
+        // for laoding sprites at runtime
+        spriteFactory = new SpriteFactory();
+
         // init player
         player = new Player(tileMap);
         player.setPosition(100, 100);
 
+        // add enemies, checkpoints and items
         populateEnemies();
         explosions = new ArrayList<>();
         checkpoints = new ArrayList<>();
         addCheckpoints();
         potions = new ArrayList<>();
         addPotions();
+
         hud = new HUD(player);
     }
 
@@ -109,6 +119,8 @@ public class Level1State extends GameState{
         for (Point point : points) {
             // create new enemy for this point
             slime = new Slime(tileMap);
+            slime.getAnimation().setFrames(spriteFactory.getSlimeSprites());
+            slime.getAnimation().setDelay(400);
             slime.setPosition(point.x, point.y);
             enemies.add(slime);
         }

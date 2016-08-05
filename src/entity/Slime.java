@@ -7,26 +7,30 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * A weak enemy, occurs mostly in the first two levels of the game.
+ */
 public class Slime extends Enemy {
 
-    private static final int SLIME_SIZE = 32;
-    private static final int COLLISION_BOX_SIZE = 20;
-
     /**
-     * Subimages from spritesheet.
+     * Width and height of the slime.
      */
-    private BufferedImage[] sprites;
+    public static final int SLIME_SIZE = 32;
     /**
-     * Amount of frames for slime animation.
+     * Size for tolerance of collision detection.
      */
-    private final int numFrames = 2;
+    public static final int COLLISION_BOX_SIZE = 20;
+    /**
+     * Amount of frames for sprite-animation.
+     */
+    public static final int NUM_FRAMES_SLIME = 2;
     /**
      * Animation of the spritesheet's frames.
      */
     private Animation animation;
 
     /**
-     * Sets basic attributes, sprites and animation.
+     * Sets basic attributes.
      * @param tileMap the map the slime appears in
      */
     public Slime(TileMap tileMap) {
@@ -41,33 +45,17 @@ public class Slime extends Enemy {
         maxSpeed = 0.2;
         fallSpeed = 0.2;
         maxFallSpeed = 10.2;
-
         health = maxHealth = 2;
         damage = 1;
 
-        // load sprites
-        try {
-            BufferedImage spritesheet = ImageIO.read(getClass().getResourceAsStream("/sprites/enemies/slime/glooRotated.png"));
-            sprites = new BufferedImage[numFrames];
-
-            for (int i = 0; i < sprites.length; i++) {
-                sprites[i] = spritesheet.getSubimage(i*width, 0, width, height);
-            }
-
-            animation = new Animation();
-            animation.setFrames(sprites);
-            animation.setDelay(400);
-
-            // set starting direction
-            right = true;
-            facingRight = true;
-
-        } catch (Exception e) {
-            ErrorMessages.ERR_SPRITES.getText();
-            e.printStackTrace();
-        }
+        animation = new Animation();
+        right = true;
+        facingRight = true;
     }
 
+    /**
+     * Determines next position on the map.
+     */
     private void getNextPosition() {
 
         // basic movement
@@ -125,6 +113,10 @@ public class Slime extends Enemy {
             graphics2D.drawImage(animation.getImage(), (int)(xPos+xMap-width/2+width),
                     (int)(yPos+yMap-height/2), -width, height, null);
         }
+    }
+
+    public Animation getAnimation() {
+        return animation;
     }
 
 
